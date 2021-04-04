@@ -4,9 +4,9 @@ I developed this project with the main aim to learn more about development,
 payment gateway and invoice generation. There is complete dedicated admin panel for the website. 
 ###
 * User and admin can login & signup.
-*Fetching data from database.
-*User can add products in cart.
-*user can add & edit address.
-*User can generate invoice
-*User can upload profile picture.
-*User can search products.
+* Fetching data from database.
+* User can add products in cart.
+* User can add & edit address.
+* User can generate invoice
+* User can upload profile picture.
+* User can search products.
