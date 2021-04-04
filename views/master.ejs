@@ -1,0 +1,66 @@
+  <%- include('partials/header') %>
+
+
+<body>
+  <nav class="nav_col navbar navbar-expand-lg ">
+  <a class="navbar-brand" href="#" style="color:white;">Welcome,<span id="fname"><%=name.name%></span> </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav ml-auto">
+        <img width="20" href="/myprofile" height="20" src="./uploads/<%=name.imagename%>" style="margin-top: 10px;width: 40px;border-left-width: 10px;height: 30px;margin-bottom: 10px;" alt="">
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+          Account
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/myprofile">My Profile</a>
+            <a class="dropdown-item" href="/address">Address</a>
+          <a class="dropdown-item" href="/Logout">Logout</a>
+            <a class="dropdown-item" href="/managecategory">All Category</a>
+      </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="row">
+  <form class="" action="/master" method="post" enctype="multipart/form-data" >
+
+
+    <div   class="row required">
+      <input  type="text" name="categoryname" id="categoryname" class="form__input form-control  star " placeholder="categoryname" required/>
+    </div>
+    <div class="col-md-12" style="text-align:center;">
+     <input class="nav_col" type="file" id="filename" name="filename" placeholder=" " required>
+     </div>
+    <div class="row">
+  <input type="submit"style="width:126px;" name="submit" value="Upload" class="btn btn-primary">
+         <!-- <button type="submit" value="Upload" class="btn btn-dark">Save</button> -->
+</form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('partials/footer') %>

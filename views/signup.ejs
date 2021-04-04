@@ -1,0 +1,272 @@
+<%- include('partials/header') %>
+<body>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Success</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4 id="message"><b></b></h4>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-secondary" id="modalclose">OK</a>
+        </div>
+        </div>
+        </div>
+  </div>
+  <div class="container-fluid">
+      <div class="row main-content bg-success text-center">
+        <div class="col-md-4 text-center company__info">
+          <span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>
+          <h4 class="company_title"> <h1>Sign Up<h1></h4>
+        </div>
+        <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+          <div class="container-fluid">
+            <div class="row">
+              <h2>Sign Up</h2>
+            </div>
+            <div class="row">
+              <form  class="form-group">
+                <div   class="row required">
+                  <input  type="text" name="name" id="name" class="form__input form-control  star " placeholder="Full Name " required/>
+                </div>
+                <div class="row required">
+                  <input type="email" name="email" id="email" class="form__input form-control star " placeholder=" Email Id" required/>
+               </div>
+               <div class="row required">
+                 <input type="text" name="number" minlength="10" maxlength="10"  id="number" class="form__input form-control star" placeholder="Phone-No" required/>
+              </div>
+              <div class="row required">
+                <input type="password" name="password" pattern=".{6,8}" required title="6 to 8 characters" id="password" class="form__input form-control star" placeholder=" Password">
+
+                 </div>
+                 <small id="passwordHelpBlock" class="form-text text-muted text-center star">
+                   (Password Must Contain,[A-Z][a-z][0-9])
+                 </small>
+              </div>
+
+      <div class="row">
+<button type="button"  onclick="save();" class="btn btn-dark">Register</button>
+         </div>
+      <script type="text/javascript">
+
+         function phoneno(){
+
+               var number = document.getElementById("number").value;
+               if(number.length!=10){
+               msg1.innerHTML = "Number must be 10 digit ";
+               document.getElementById("email").style.border="solid 1px red";
+               document.getElementById("modalclose").style.color="red";
+               closebtn.setAttribute("href", "/signup");
+               $('#exampleModalCenter').modal();
+
+               return false;
+             }
+             else if( /^\d+$/.test(number)==false){
+               msg1.innerHTML = "Phone Number can Only Contain Digits ";
+               document.getElementById("email").style.border="solid 1px red";
+               document.getElementById("modalclose").style.color="red";
+               closebtn.setAttribute("href", "/signup");
+               $('#exampleModalCenter').modal();
+
+               return false;
+             }
+
+
+
+          return true;
+        }
+
+
+        function ValidateEmail()
+        {
+          document.getElementById("exampleModalLongTitle").innerHTML="Alert!!";
+         document.getElementById("exampleModalLongTitle").style.color = "Red";
+         msg1 = document.getElementById("message");
+         msg1.style.color="red";
+           emailerrors1=[];
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+             var email = document.getElementById("email").value;
+         if (validRegex.test(email)==false)
+          { console.log("email"+email);
+          msg1.innerHTML = "Invalid email address!" ;
+          document.getElementById("email").style.border="solid 1px red";
+          document.getElementById("modalclose").style.color="red";
+          closebtn.setAttribute("href", "/signup");
+          $('#exampleModalCenter').modal();
+
+          return false;
+        }
+
+
+
+     return true;
+   }
+
+
+
+
+
+
+          function required (){
+            document.getElementById("exampleModalLongTitle").innerHTML="Alert!!";
+             document.getElementById("exampleModalLongTitle").style.color = "Red";
+            console.log("require");
+              msg1 = document.getElementById("message");
+              msg1.style.color="red";
+              //var form = document.getElementById('name').value;
+              errors1=[];
+              var name= document.getElementById("name").value;
+              var number = document.getElementById("number").value;
+              var email = document.getElementById("email").value;
+              var password = document.getElementById("password").value;
+
+              if(name==""){
+                errors1.push("Please Enter Your Full Name.<br>");
+                  document.getElementById("name").style.border="solid 1px red";
+              }
+             if (number=="") {
+                 errors1.push("Please Enter Your Phone Number.<br>");
+                   document.getElementById("number").style.border="solid 1px red";
+              }
+            if (email=="") {
+                  errors1.push("Please Enter Your Email.<br>" );
+                    document.getElementById("email").style.border="solid 1px red";
+              }
+              if (password=="") {
+                    errors1.push("Please Enter Your Password.<br>");
+                    document.getElementById("password").style.border="solid 1px red";
+                }
+
+
+                if (errors1.length > 0) {
+                  msg1.innerHTML = "All fields are mandatory ";
+                  document.getElementById("modalclose").style.color="red";
+                  closebtn.setAttribute("href", "/signup");
+                  $('#exampleModalCenter').modal();
+
+                  return false;
+                }
+
+              return true;
+            }
+
+
+        function validatePassword() {
+
+   document.getElementById("exampleModalLongTitle").innerHTML="Alert!!";
+    document.getElementById("exampleModalLongTitle").style.color = "Red";
+
+    var p = document.getElementById('password').value,
+    msg = document.getElementById("message");
+    msg.style.color="red";
+    closebtn = document.getElementById('modalclose');
+        errors = [];
+    if (p.length<6) {
+        errors.push("Your password must be greater 6 characters.<br> ");
+          document.getElementById("password").style.border="solid 1px red";
+    }
+    if (p.search(/[a-z]/i) < 0) {
+        errors.push("Your password must contain at least one lowercase.<br>");
+          document.getElementById("password").style.border="solid 1px red";
+    }
+    if (p.search(/[0-9]/) < 0) {
+        errors.push("Your password must contain at least one digit.<br>");
+          document.getElementById("password").style.border="solid 1px red";
+    }
+    if (p.search(/[A-Z]/) < 0) {
+        errors.push("Your password must contain at least one uppercase.<br>");
+          document.getElementById("password").style.border="solid 1px red";
+    }
+    if (errors.length > 0) {
+
+        msg.innerHTML = (errors.join("\n"));
+        document.getElementById("exampleModalLongTitle").style.color = "Red";
+        closebtn.setAttribute("href", "/signup");
+        $('#exampleModalCenter').modal();
+          return false;
+    }
+    return true;
+}
+
+        function save(){
+          console.log("aditya");
+  var data = {};
+  msg = document.getElementById("message");
+  closebtn = document.getElementById('modalclose');
+  data.name= document.getElementById("name").value;
+  data.number = document.getElementById("number").value;
+  data.email = document.getElementById("email").value;
+  data.password = document.getElementById("password").value;
+ var y=required()
+ if(y==false){
+   return;
+ }
+  var x = validatePassword()
+
+  if(x==false){
+    return;
+  }
+  var a=phoneno()
+  {
+    if(a==false)
+    return;
+  }
+   var email=ValidateEmail()
+   {
+     if(email==false)
+     return;
+   }
+
+  $.ajax({
+    type: 'POST',
+    data: data,
+    url: '/signup',
+    success: function(returns){
+      console.log("email_already_exists");
+       if(returns==="email_already_exists"){
+         msg.innerHTML = "Email/Contact Number already exists";
+         document.getElementById("modalclose").style.color="red";
+
+         msg.style.color="red";
+         document.getElementById("exampleModalLongTitle").innerHTML="Alert!!";
+          document.getElementById("exampleModalLongTitle").style.color="red";
+         closebtn.setAttribute("href", "/signup");
+         $('#exampleModalCenter').modal();
+       }
+
+        else if (returns){
+          document.getElementById("modalclose").style.color="green";
+           document.getElementById("exampleModalLongTitle").innerHTML="Success";
+            document.getElementById("exampleModalLongTitle").style.color = "green";
+          msg.innerHTML = "User Save !!!"
+          msg.style.color="green";
+          closebtn.setAttribute("href", "/");
+          $('#exampleModalCenter').modal();
+
+
+          }
+
+        else{
+          msg.style.color="red";
+          msg.innerHTML = "User Not Save !!!";
+           document.getElementById("exampleModalLongTitle").innerHTML="Alert!!";
+             document.getElementById("exampleModalLongTitle").style.color = "Red";
+          closebtn.setAttribute("href", "/signup");
+          $('#exampleModalCenter').modal();
+          }
+    }
+  });
+}
+      </script>
+
+
+</div>
+</div>
+</div>
+</div>
+<%- include('partials/footer') %>

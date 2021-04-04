@@ -1,0 +1,136 @@
+<%- include('partials/header') %>
+
+<body>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Success</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4 id="message"><b></b></h4>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-secondary" id="modalclose">OK</a>
+        </div>
+        </div>
+        </div>
+  </div>
+  <div class="container-fluid">
+      <div class="row main-content bg-success text-center">
+        <div class="col-md-4 text-center company__info">
+          <span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>
+          <h4 class="company_title">Forgot Password</h4>
+        </div>
+        <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+          <div class="container-fluid">
+            <div class="row">
+              <h2>Forgot Password</h2>
+            </div>
+            <div class="row">
+              <form  class="form-group">
+
+                <div class="row">
+                  <input type="password" name="new" id="newpassword" class="form__input" placeholder="New Password" >
+                </div>
+
+                <div class="row">
+                <input type="password" name="password" id="password" class="form__input" placeholder="Confirm Password" >
+                </div>
+                 <div>
+                  <button type="button"  onclick="update_password();"class="btn btn-sm btn-dark">Update</button>
+                </div>
+
+                <script type="text/javascript">
+
+                  function validatePassword() {
+              var p = document.getElementById('newpassword').value,
+                errors = [];
+                  header_msg=document.getElementById("exampleModalLongTitle");
+              msg = document.getElementById("message");
+              closebtn = document.getElementById('modalclose');
+
+              if (p.length<6) {
+                  errors.push("Your password must be greater then 6 chracters.<br> ");
+              }
+              if (p.search(/[a-z]/i) < 0) {
+                  errors.push("Your password must contain at least one lowercase.<br>");
+              }
+              if (p.search(/[0-9]/) < 0) {
+                  errors.push("Your password must contain at least one digit.");
+              }
+              if (p.search(/[A-Z]/) < 0) {
+                  errors.push("Your password must contain at least one uppercase.");
+              }
+              if (errors.length > 0) {
+                  header_msg.innerHTML=" Warning!!";
+                  msg.innerHTML = (errors.join("\n"));
+                  closebtn.setAttribute("href", "/forgot");
+                  $('#exampleModalCenter').modal();
+                    return false;
+              }
+              return true;
+          }
+
+                  function update_password(){
+                    console.log("update password");
+
+
+            newpassword = document.getElementById("newpassword").value;
+            confirm_password = document.getElementById("password").value;
+            var x = validatePassword();
+            if(x==false){
+              return;
+            }
+
+            if(newpassword != confirm_password){
+              header_msg.innerHTML=" Alert!!";
+               document.getElementById("modalclose").style.color="red";
+                   document.getElementById("exampleModalLongTitle").style.color="red";
+                      msg.style.color="red";
+              msg.innerHTML = "Password not matched"
+              closebtn.setAttribute("href", "/forgot");
+              $('#exampleModalCenter').modal();
+
+                //alert("Password not matched");
+            }else{
+              var data1 = {};
+              data1.newpassword = newpassword;
+              $.ajax({
+                type: 'POST',
+                data:data1,
+                url: '/updatepassword',
+                success: function(returns){
+                   console.log(returns);
+                   header_msg.innerHTML="Success";
+                    document.getElementById("modalclose").style.color="green";
+                        document.getElementById("exampleModalLongTitle").style.color="green";
+                           msg.style.color="green";
+                   msg.innerHTML = "successfully updated"
+                   closebtn.setAttribute("href", "/");
+                   $('#exampleModalCenter').modal();
+                   // alert("successfully updated");
+                   //   window.location.href ="/";
+
+
+                }
+              });
+              }
+            }
+
+
+                </script>
+
+
+
+              </div>
+              </div>
+              </div>
+              </div>
+
+
+
+                <%- include('partials/footer') %>

@@ -1,0 +1,118 @@
+<%- include('partials/header') %>
+
+
+  <nav class="  nav_col navbar navbar-expand-lg  ">
+    <a class="navbar-brand" href="#" style="color:white;">Welcome,<span id="fname"><%=user.name%></span> </a>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+    <div class="container h-100" style="width:430px;">
+      <div class="d-flex justify-content-center h-100">
+        <div class="searchbar">
+          <input type="text" id="SerchName"name="filtername" class="search_input" value="">
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="nav navbar-nav ml-auto">
+           <a href="/cart" style="padding:15px; color:white;"<i class="fas fa-cart-plus xl"><%=count_of_products%></a>
+        <a> <img width="20" href="/myprofile" height="20" src="/uploads/<%=user.imagename%>" style="margin-top: 10px;width: 40px;border-left-width: 10px;height: 30px;margin-bottom: 10px;" alt="">
+        </a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+            Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/myprofile"><i class="fa fa-user" aria-hidden="true"></i>My Profile</a>
+              <a class="dropdown-item" href="/address">Address</a>
+                  <a class="dropdown-item" href="/dashboard">Dashboard</a>
+            <a class="dropdown-item" href="/Logout">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+
+
+  <section id="cardid" class="cards">
+
+    <br>
+      <% for(var y of cat){ %>
+    <h3 class="content" style="margin-top:10px;margin-right:10px;margin-left:20px;"><%=y.categoryname%></h3>
+  <% } %>
+    <br>
+
+    <div style="margin-top:10px;margin-right:10px;margin-left:10px;" class="row">
+      <% for(var c of product){ %>
+
+      <div class="pricing-column col-sm-3 py-2">
+        <div class="card content shadow p-1 mb-3 bg-white rounded">
+          <div class="card-header">
+            <h4 id="book" name="books"><%=c.Pname%></h4>
+          </div>
+          <div class="card-body">
+            <h2 class="price-text"></h2>
+            <img id="booksimg" name="booksimg" style="height: 300px;width:300px%;" class="d-block w-100" src="/uploads/<%=c.Pimage%>" alt="First slide">
+            </div>
+              <div class="card-footer card-header">
+            <a style="width:150px;"class="btn btn-sm btn-blocking btn-dark " href='/add_product/<%=y._id%>/<%=c._id%>' type="button"><i class="fas fa-cart-plus"></i> Add To CART</a>
+            <a style="font-size: 20px;"><strong><i class="fas fa-rupee-sign" style="padding-left:50px;";><%=c.Pprice%>.00</i></strong></a>
+          </div>
+        </div>
+
+      </div>
+      <% } %>
+
+
+
+  </section>
+  <footer class="nav_col text-center text-lg-start">
+    <!-- Copyright -->
+
+    <div class="text-center p-3" >
+      <a style="background-color: rgba(0, 0, 0, 0.2)"class="text-light">© 2020 Copyright:
+        <a class="text-light"style="margin-right:20px" href="https://mdbootstrap.com/">AdityaShrivastava</a>
+      <i style="color:white;font-size:20px;">   <i style="margin-right:10px;"class="fab fa-facebook text-right  ">  </i><i style="margin-right:10px;" class="fab fa-instagram text-right">  </i><i style="margin-right:10px;" class="fab fa-google-plus-g text-right"></i></i>
+    </div>
+
+    <!-- Copyright -->
+  </footer>
+  <script >
+    $(function(){
+
+      $("#SerchName").autocomplete({
+
+        source:function(req,res){
+console.log("ajax");
+          $.ajax({
+            url:"/autocompete/",
+            dataType:"jsonp",
+            type:"GET",
+            data:req,
+            success:function(data){
+              console.log(data);
+              res(data)
+
+            },
+            error: function(err){
+              console.log(err.status);
+            }
+          });
+        },
+        minLength:1,
+        select:function(event,ui){
+          if(ui.item){
+             $('#SerchName').text(ui.item.label);
+          }
+        }
+      });
+    });
+
+  </script>
+
+
+<%-include('partials/footer')%>

@@ -1,0 +1,163 @@
+<%- include('partials/header') %>
+
+
+<body>
+  <nav class="nav_col navbar navbar-expand-lg ">
+  <a class="navbar-brand" href="#" style="color:white;">Welcome,<span id="fname"><%=name.name%></span> </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav ml-auto">
+           <a href="/cart" style="padding:15px; color:white;"<i class="fas fa-cart-plus xl"><%=count_of_products%>Cart</a>
+        <img width="20" href="/myprofile" height="20" src="/uploads/<%=name.imagename%>" style="margin-top: 10px;width: 40px;border-left-width: 10px;height: 30px;margin-bottom: 10px;" alt="">
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+          Account
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/myprofile"><i class="fa fa-user" aria-hidden="true"></i>My Profile</a>
+            <a class="dropdown-item" href="/address">Address</a>
+              <a class="dropdown-item" href="/dashboard">Dashboard</a>
+          <a class="dropdown-item"   href="/Logout">Logout</a>
+
+      </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+
+  <div class="row" style="margin-top:50px; margin-left:10px">
+
+    <div class="col-md-8">
+    <div class="card  col-md-12; shadow p-2 mb-5 bg-white rounded"  style="width:640px;">
+      <div class="card-header" style="width:560px;padding:10px;">
+   <h5 > DELIVERY ADDRESS </h5>
+ </div>
+      <% for(var c of address){ %>
+
+      <div class="col-md-12"style="padding-top:10px; width:550px;";>
+        <div class="card content" style=" width:570px">
+
+          <div class="card-body">
+            <input type="radio"  onclick=""class="radio" name="address" readonly="" id="radio" value="<%=c._id%>">
+
+            <a href="/delete_address" style="margin-left:440px; color:#008080;"class="far fa-trash-alt ">Remove</a>
+
+            <h5 class="price-text"><%=c.fullname%>,    <%=c.phone_no%></h5>
+            <p><%=c.address%>,<strong><%=c.state%>,<%=c.city%>,<%=c.pincode%></strong></p>
+             <%console.log("add"+c._id);%>
+          </div>
+        </div>
+      </div>
+
+      <% } %>
+  </div>
+
+</div>
+
+
+<div class="col-md-4">
+
+  <!-- Card -->
+
+  <!-- Card -->
+  <div class="card shadow p-3 mb-5 bg-white rounded" style="width:90%; color:#008080;">
+    <div class="card-header">
+    <h5>PRICE DETAILS</h5>
+    </div>
+    <ul class="list-group list-group-flush" style="padding:20px;">
+      <li class="list-group-item list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0""><p>Price <span>(<%=count_of_products %> items)</span></p>
+      <span><%=total_price%>.00</span>
+    </li>
+
+<li class="list-group-item list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"">  Shipping Charges
+        <span>50.00</span></li>
+        <div>
+      <li class="list-group-item list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0""><strong>Amount Payable </strong>
+        <span><strong class="fas fa-rupee-sign"><%=total_price+50%>.00</strong></span>
+        </li>
+       </div>
+       <div class="row required">
+            <span class="list-group-item list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0" >
+               Mode Of Payment
+             </span>
+              <select name="ModeOfPayment" id="ModeOfPayment" class="form__input form-control  " placeholder="Mode Of Payment" style="padding-top:0px;">
+       <option>Cash On Delivery</option>
+        <option>visa</option>
+
+   </select>
+   </div>
+    </ul>
+      <a   onclick="save();"type="button" class="btn btn-primary btn-block" style="width:40%;padding=20px;margin-left:220px;">Confirm Order</a>
+  </div>
+</div>
+
+
+ <script type="text/javascript">
+  function save(){
+    console.log("order_data_save");
+    var today = new Date();
+   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var data = {};
+  msg = document.getElementById("message");
+  closebtn = document.getElementById('modalclose');
+  data.quantity=<%=count_of_products%>;
+  data.price=<%=total_price+50%>.00%>;
+  data.ModeOfPayment=document.getElementById("ModeOfPayment").value;
+  data.address=document.getElementById("radio").value;
+  data.date=date;
+   var ele = document.getElementsByName('address');
+
+   for(i = 0; i < ele.length; i++) {
+     console.log(ele[i].value);
+     console.log(ele[i].checked);
+       if(ele[i].checked){
+         console.log(ele[i].value);
+          data.address=ele[i].value;
+       }
+   }
+ 
+
+       
+
+        
+
+
+  // var y=required()
+  // if(y==false){
+  // return;
+
+
+  $.ajax({
+    type: 'POST',
+    data: data,
+    url: '/checkout',
+    success: function(returns){
+           if(returns){
+              // window.location='/cart'
+            { console.log("true save");
+};
+}
+      else{
+         { console.log("true not save");
+ };
+        }
+      }
+  });
+}
+
+
+</script>
+</div>
+
+
+
+
+
+
+<%-include('partials/footer') %>

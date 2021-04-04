@@ -1,0 +1,154 @@
+<%- include('partials/header') %>
+
+
+  <nav class="  nav_col navbar navbar-expand-lg  ">
+    <a class="navbar-brand" href="#" style="color:white;">Welcome,<span id="fname"><%=user.name%></span> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="nav navbar-nav ml-auto">
+        <a> <img width="20" href="/myprofile" height="20" src="/uploads/<%=user.imagename%>" style="margin-top: 10px;width: 40px;border-left-width: 10px;height: 30px;margin-bottom: 10px;" alt="">
+        </a>
+         <a href="/cart" style="padding:15px;"<i class="fas fa-cart-plus xl"></a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+            Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/myprofile"><i class="fa fa-user" aria-hidden="true"></i>My Profile</a>
+              <a class="dropdown-item" href="/address">Address</a>
+                <a class="dropdown-item" href="/master">master</a>
+            <a class="dropdown-item" href="/Logout">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div class="pricing-column col-sm-6  "style="padding:5px;">
+      <div class="card content ">
+        <div class="card-body">
+          <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+            <i class="fas fa-plus  "></i>  Add new Product
+          </button>
+          </div>
+          </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form  class="form-group" enctype="multipart/form-data" method="post" action="/product_create/<%=categoryid%>" >
+      <div class="modal-body">
+        <div class="row">
+
+            <div   class="row required">
+              <input  type="text" name="productname" id="productname" class="form__input form-control  star " placeholder="Product Name" required/>
+            </div>
+            <div class="row required">
+              <input type="file" name="filename" id="productimage" class="form__input form-control star" placeholder="Product Image*" required/>
+           </div>
+
+            <div class="row required">
+              <input type="number" name="productprice" id="productprice" class="form__input form-control star " placeholder="Product Price" required/>
+           </div>
+
+           <div class="row required">
+             <input type="number" name="productminquantity" id="productminquantity" class="form__input form-control star " placeholder="Product Min Quantity" required/>
+          </div>
+
+          <div class="row required">
+            <input type="number" name="productmaxquantity" id="productmaxquantity" class="form__input form-control star" placeholder="Product Max Quantity"required/>
+          </div>
+
+
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <button type="submit" type="submit" value="upload" id="savebtn" class="btn btn-dark">Save</button>
+      </div>
+  </form>
+    </div>
+  </div>
+
+  </div>
+
+
+
+<table class="table table-striped"">
+  <thead>
+    <tr>
+      <th scope="col">objectid</th>
+      <th scope="col">categoryid</th>
+
+      <th scope="col">Productname</th>
+      <th scope="col">productimage</th>
+      <th scope="col">productprice</th>
+      <th scope="col">productminquqntity</th>
+      <th scope="col">productmaxquantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(var c of product){ %>
+    <tr>
+
+      <td><%=c._id%></td>
+      <td><%=c.categoryid%></td>
+
+      <td><%=c.Pname%></td>
+      <td><%=c.Pimage%></td>
+      <td><%=c.Pprice%></td>
+      <td><%=c.Pminquantity%></td>
+      <td><%=c.Pmaxquantity%></td>
+    </tr>
+      <% } %>
+  </tbody>
+</table>
+<!--
+<script type="text/javascript">
+$(document).on("click", "#savebtn", function () {
+
+  console.log("save");
+var data = {};
+data.productname = document.getElementById('productname').value;
+data.productimage= document.getElementById("productimage").value;
+data.productprice = document.getElementById("productprice").value;
+data.productminquantity = document.getElementById("productminquantity").value;
+data.productmaxquantity=document.getElementById("productmaxquantity").value;
+
+  data.categoryid = $(this).data("id");
+  console.log(data.categoryid);
+$.ajax({
+  type: 'POST',
+  data: data,
+  url: '/product_create/'+data.categoryid,
+  success: function(returns){
+
+
+       if(returns){
+
+    }
+
+}
+
+});
+
+});
+
+
+
+</script> -->
+
+
+      <%- include('partials/footer') %>

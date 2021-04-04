@@ -1,0 +1,72 @@
+<%- include('partials/header') %>
+
+<body>
+  <form action="/myprofile" id="EmployeeForm"  method="post"  role="form" enctype="multipart/form-data" style="padding:0px">
+  <nav class="nav_col navbar navbar-expand-lg">
+  <a class="navbar-brand" href="" style="color:white;">Welcome <span id="fname"><%=user.name%></span> </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav ml-auto">
+         <a href="/cart" style="padding:15px; color:white;"<i class="fas fa-cart-plus xl"><%=count_of_products%>Cart</a>
+       <!-- <img src="img\blankimg.png" alt=""> -->
+       <img href="/myprofile" width="20" height="20" src="./uploads/<%=user.imagename%>" style="margin-top: 10px;width: 40px;border-left-width: 10px;height: 30px;margin-bottom: 10px;" alt="">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+          Account
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/myprofile"><i class="fa fa-user" aria-hidden="true"></i>My Profile</a>
+              <a class="dropdown-item" href="/address">Address</a>
+              <a class="dropdown-item" href="/dashboard">Dashboard</a>
+          <a class="dropdown-item" href="/Logout">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+  <div class="container" style="text-align:center;>
+
+
+    <div class="row" style="text-align:center; padding: 8%;">
+      <div class="col-md-12" style="text-align:center; ">
+
+        <img style=" border-radius: 50%; padding-top: 10px;padding-bottom: 10px;"  width="170px" height="200px" src="./uploads/<%=user.imagename%>" alt="no profile">
+
+       </div>
+       <div class="col-md-12" style="text-align:center;">
+        <input class="nav_col" type="file" id="file" name="filename" placeholder=" " required>
+        </div>
+          <div class="col-md-12" style="text-align:center;">
+          <input type="submit"style="width:126px;" name="submit" value="Upload" class="btn btn-primary">
+          </div>
+
+    <div class="row" style="text-align:center; padding: 8%;">
+      <div  class="col-xl-12 content ">
+        <table style="font-size:20px;"content class="table">
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td><%=user.name%></td>
+            </tr>
+            <tr>
+              <td>e-mail</td>
+              <td><%=user.email%></td>
+            </tr>
+            <tr>
+              <td>phone no.</td>
+              <td><%=user.number%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+    </form>
+</body>
+<%- include('partials/footer') %>
