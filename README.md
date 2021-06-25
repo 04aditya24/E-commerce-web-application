@@ -8,3 +8,4 @@
 * User can generate invoice
 * User can upload profile picture.
 * User can search products.
+![alt text](http://url/to/img.png)
